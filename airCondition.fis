@@ -1,0 +1,57 @@
+[System]
+Name='airCondition'
+Type='mamdani'
+Version=2.0
+NumInputs=2
+NumOutputs=1
+NumRules=13
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='Temp Difference'
+Range=[-1 1]
+NumMFs=5
+MF1='Way Cooler':'trapmf',[-1 -1 -0.8 -0.5]
+MF2='Cooler':'trapmf',[-0.65 -0.4 -0.3 -0.1]
+MF3='Same':'gaussmf',[0.075 0]
+MF4='Hotter':'trapmf',[0.1 0.3 0.4 0.65]
+MF5='Way Hotter':'trapmf',[0.5 0.8 1 1]
+
+[Input2]
+Name='Rate Of Temp Change'
+Range=[-1 1]
+NumMFs=5
+MF1='Fast Decreasing':'trapmf',[-1 -1 -0.8 -0.5]
+MF2='Decreasing':'trapmf',[-0.65 -0.4 -0.3 -0.1]
+MF3='Constant':'gaussmf',[0.075 0]
+MF4='Increasing':'trapmf',[0.1 0.3 0.4 0.65]
+MF5='Fast Increasing':'trapmf',[0.5 0.8 1 1]
+
+[Output1]
+Name='Mode'
+Range=[-1 1]
+NumMFs=5
+MF1='Max Cooling':'trapmf',[-1 -1 -0.8 -0.5]
+MF2='Normal Cooling':'trapmf',[-0.65 -0.4 -0.3 -0.1]
+MF3='Stand-by':'gaussmf',[0.075 0]
+MF4='Normal Heating':'trapmf',[0.1 0.3 0.4 0.65]
+MF5='Max Heating':'trapmf',[0.5 0.8 1 1]
+
+[Rules]
+1 -5, 5 (1) : 1
+1 5, 4 (1) : 1
+2 -1, 4 (1) : 1
+2 1, 5 (1) : 1
+3 1, 4 (1) : 1
+3 2, 3 (1) : 1
+3 3, 3 (1) : 1
+3 4, 3 (1) : 1
+3 5, 2 (1) : 1
+4 5, 1 (1) : 1
+4 -5, 2 (1) : 1
+5 1, 2 (1) : 1
+5 -1, 1 (1) : 1
